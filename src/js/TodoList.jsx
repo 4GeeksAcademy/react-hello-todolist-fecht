@@ -10,7 +10,7 @@ function TodoList() {
     fetch('https://playground.4geeks.com/todo/users/David03061976')
       .then((response) => response.json())
       .then((data) => {
-        setTasks(data.todos) // Actualizar los datos recibidos
+        setTasks(Array.isArray(data) ? data : []) // Actualizar los datos recibidos
       })
       .catch((error) => console.error('Error al cargar las tareas:', error));
   }, []);
@@ -33,20 +33,20 @@ function TodoList() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(task), 
+      body: JSON.stringify(task),
     })
-      .then((response) => response.json()) 
+      .then((response) => response.json())
       .then((data) => {
         setTasks([...tasks, data]);
       })
       .catch((error) => console.error('Error al agregar tarea:', error));
   }
 
-  function clearAllTasks() { 
+  function clearAllTasks() {
     fetch('https://playground.4geeks.com/todo/users/David03061976', {
-      method: 'DELETE', 
+      method: 'DELETE',
     })
-      .then((response) => response.text()) 
+      .then((response) => response.text())
       .then(() => {
         setTasks([]);
         crearUsers()
@@ -72,7 +72,7 @@ function TodoList() {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json()) 
+      .then((response) => response.json())
       .then((data) => {
         console.log(data);
       })

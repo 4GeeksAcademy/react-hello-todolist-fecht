@@ -8,12 +8,19 @@ function TodoList() {
   useEffect(() => {
 
     fetch('https://playground.4geeks.com/todo/users/David03061976')
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok){
+          return response.json()
+        }else{
+          crearUsers()
+        }
+      })
       .then((data) => {
         setTasks(Array.isArray(data) ? data : []) // Actualizar los datos recibidos
       })
       .catch((error) => console.error('Error al cargar las tareas:', error));
   }, []);
+  console.log(tasks)
   // Funcion para agregar tareas
   function addTask(e) {
     e.preventDefault()
